@@ -14,14 +14,3 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <div>Hello World</div>,
-  },
-]);
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
