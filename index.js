@@ -332,30 +332,3 @@ export default function Cards() {
 
   /* ──────────────────── Issue a virtual card ──────────────────── */
 
-  const [issueOpen, setIssueOpen] = useState(false);
-  const [issueLabel, setIssueLabel] = useState('');
-  const [issueAccountId, setIssueAccountId] = useState('');
-  const [issueLimitInput, setIssueLimitInput] = useState('2500');
-  const [issueError, setIssueError] = useState<string | null>(null);
-
-  const openIssue = () => {
-    setIssueLabel('');
-    setIssueAccountId(accounts.data?.[0]?.id ?? '');
-    setIssueLimitInput('2500');
-    setIssueError(null);
-    setIssueOpen(true);
-  };
-
-  const issueCard = async () => {
-    const account = (accounts.data ?? []).find((item) => item.id === issueAccountId);
-
-    if (!issueLabel.trim()) {
-      setIssueError('Give the card a name you will recognise on a statement.');
-      return;
-    }
-    if (!account) {
-      setIssueError('Choose an account to fund the card from.');
-      return;
-    }
-
-    const limit = parseAmountInput(issueLimitInput);
