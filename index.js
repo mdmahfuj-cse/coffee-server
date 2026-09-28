@@ -179,26 +179,3 @@ export default function Cards() {
     });
   }, [history.data]);
 
-  /** Wallet-wide figures, normalised to USD so mixed-currency cards can add up. */
-  const totals = useMemo(() => {
-    const spent = list.reduce(
-      (sum, item) => sum + convertMinor(item.spentThisMonthMinor, item.currency, 'USD'),
-      0,
-    );
-    const limit = list.reduce(
-      (sum, item) => sum + convertMinor(item.monthlyLimitMinor, item.currency, 'USD'),
-      0,
-    );
-    return {
-      spent,
-      limit,
-      remaining: Math.max(limit - spent, 0),
-      utilisation: limit > 0 ? (spent / limit) * 100 : 0,
-      frozen: list.filter((item) => item.frozen).length,
-      virtual: list.filter((item) => item.variant === 'virtual').length,
-      count: list.length,
-    };
-  }, [list]);
-
-  const fundingAccount = (accounts.data ?? []).find((item) => item.id === card?.accountId);
-
